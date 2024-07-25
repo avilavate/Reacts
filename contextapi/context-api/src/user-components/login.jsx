@@ -19,7 +19,7 @@ export function Login() {
 
     return (
         <>
-            <h3>User Login</h3>
+            <h2>User Login</h2>
             <label htmlFor="userName">User Name</label> {" "}
             <input
                 type="text"
