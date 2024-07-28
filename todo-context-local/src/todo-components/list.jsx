@@ -1,20 +1,25 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { TodoContext } from "../contexts"
-import { Display, TodoList } from ".";
+import { Display } from ".";
 
 
 export default function TotoList(params) {
     const { todos, deleteTodo } = useContext(TodoContext);
-    
-    console.dir("from list: "+todos)
+
+    useEffect(() => {
+      
+        localStorage.setItem("todos", JSON.stringify(todos))
+      }, [todos])
+
+    console.dir("from list: " + todos)
     return (
         <>
             {todos.map(todo => {
-                
+               
                 return (
-                   
-                      <Display todo={todo}></Display>
-                  
+                        
+                        <Display todo={todo}></Display>
+              
                 )
             }
 

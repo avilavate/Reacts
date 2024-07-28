@@ -4,29 +4,39 @@ import { useContext } from "react"
 
 export default function Display({ todo }) {
 
+
     const [startEditing, setStartEdinting] = useState(false)
-    const { todos, deleteTodo, editTodo } = useContext(TodoContext);
-    const [editedTodo, setEditedTodo] = useState(todo);
+    const { deleteTodo, editTodo } = useContext(TodoContext);
+    const [editedTodo, setEditedTodo] = useState({});
 
     const onEdit = () => {
+        setEditedTodo(todo);
         setStartEdinting(true);
     }
 
     const onAdding = () => {
-        console.dir(editedTodo)
+
         editTodo(editedTodo.id, editedTodo);
         setStartEdinting(false);
+    }
+
+    const toggleComplte = () => {
+        setEditedTodo({
+            ...editedTodo,
+            completed: !editedTodo.completed
+        }
+        )
     }
 
     if (!startEditing) {
         return (
             <div className="ui grid grid-pad action input" >
-
-                <button className="ui icon button"  >
-                    <i aria-hidden="true" className={editedTodo.completed?"thumbs up icon":"thumbs down icon"}></i>
+                <button className="ui icon button" disabled={true} >
+                    <i aria-hidden="true" className={todo.completed ? "thumbs up icon" : "thumbs down icon"}></i>
                 </button>
-                < input type="text" placeholder="Todo..." value={editedTodo.desc} disabled={true} />
-                <button className="ui icon button" onClick={() => deleteTodo(editedTodo.id)}>
+
+                < input type="text" placeholder="Todo..." value={todo.desc} disabled={true} />
+                <button className="ui icon button" onClick={() => deleteTodo(todo.id)}>
                     <i aria-hidden="true" className="archive icon"></i>
                 </button>
                 <button className="ui icon button" onClick={() => { onEdit() }}>
@@ -40,23 +50,23 @@ export default function Display({ todo }) {
         return (
             <div className="ui grid grid-pad action input" >
 
-                {/* <button className="ui icon button">
-            <i aria-hidden="true" className="thumbs up icon"></i>
-        </button> */}
+                <button className="ui icon button" onClick={() => { toggleComplte() }} >
+                    <i aria-hidden="true" className={editedTodo.completed ? "thumbs up icon" : "thumbs down icon"}></i>
+                </button>
                 < input
                     type="text"
 
-                    value={editedTodo.desc} 
-                    
-                    onChange={(e) => { 
-                      
+                    value={editedTodo.desc}
+
+                    onChange={(e) => {
+
                         setEditedTodo({
                             ...editedTodo,
-                            desc:e.target?.value,
-                           
+                            desc: e.target?.value,
+
                         })
 
-                        }} />
+                    }} />
 
                 <button className="ui icon button" onClick={() => { onAdding() }}>
                     <i aria-hidden="true" className="save outline icon"></i>
