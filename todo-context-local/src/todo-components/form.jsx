@@ -27,7 +27,8 @@ export default function TodoForm() {
 
                 <div className="field"><div className="ui checkbox">
                     <input type="checkbox" onChange={(e)=>{
-                        setIsComplete(e.target?.value)
+                        console.dir(e.target)
+                        setIsComplete(e.target?.checked)
                        
                         }}/>
                     <label>Completed?</label>
@@ -38,7 +39,7 @@ export default function TodoForm() {
                 onClick={(e)=>{
                     e.preventDefault()
                     console.log(desc, isCompleted)
-                    debugger
+                    
                     todo={
                         'desc':desc,
                         'completed':isCompleted

@@ -10,9 +10,9 @@ function App() {
   const [todo, setTodo] = useState([]);
 
   const addTodo = (todo) => {
-    debugger
+
     console.dir(todo)
-    let newTodos=[{id:Date.now(), ...todo}, ...todos]
+    let newTodos = [{ id: Date.now(), ...todo }, ...todos]
     console.log(newTodos)
     //addTodoFn(todo, setTodos)
     setTodos(newTodos)
@@ -20,9 +20,25 @@ function App() {
 
   const deleteTodo = (id) => {
     console.log("id: ", id)
-    let newTodos=todos.filter(todo=>todo.id!=id)
+    let newTodos = todos.filter(todo => todo.id != id)
 
     setTodos(newTodos)
+  }
+
+  const editTodo = (id, todo) => {
+    let edditedList = todos.map((t) => {
+      if (id == t.id) {
+        return todo
+      }
+      else {
+        return t;
+      }
+    })
+
+    console.dir(todos)
+    console.log(edditedList)
+    console.log(todo)
+    setTodos(edditedList)
   }
 
   useEffect(() => {
@@ -31,6 +47,8 @@ function App() {
       setTodos(todos)
     }
   }, [])
+
+
 
   useEffect(() => {
     console.log(todos.length)
@@ -41,7 +59,7 @@ function App() {
     <div>
       <Header></Header>
 
-      <TodoContextProvider value={{ todos,todo,setTodo, addTodo, deleteTodo }}>
+      <TodoContextProvider value={{ todos, todo, setTodo, addTodo, deleteTodo, editTodo }}>
 
 
         <TodoForm></TodoForm>
